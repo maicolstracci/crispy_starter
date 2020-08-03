@@ -1,4 +1,4 @@
-import 'package:crispy_starter/BLoC/bloc_event_state.dart';
+import 'file:///C:/Users/Maicol/AndroidStudioProjects/crispy_starter/lib/BLoC/Helpers/bloc_event_state.dart';
 import 'package:crispy_starter/Events/increment_counter_event.dart';
 import 'package:crispy_starter/States/increment_counter_state.dart';
 

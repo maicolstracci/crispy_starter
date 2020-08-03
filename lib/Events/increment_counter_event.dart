@@ -1,6 +1,6 @@
 
 
-import 'package:crispy_starter/BLoC/bloc_event_state.dart';
+import 'file:///C:/Users/Maicol/AndroidStudioProjects/crispy_starter/lib/BLoC/Helpers/bloc_event_state.dart';
 
 class IncrementCounterEvent extends BlocEvent {
 
