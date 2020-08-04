@@ -1,5 +1,6 @@
-import 'file:///C:/Users/Maicol/AndroidStudioProjects/crispy_starter/lib/BLoC/Helpers/bloc_event_state.dart';
 import 'package:flutter/material.dart';
+
+import 'bloc_event_state.dart';
 
 typedef Widget AsyncBlocEventStateBuilder<BlocState>(BuildContext context, BlocState state);
 

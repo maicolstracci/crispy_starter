@@ -1,13 +1,12 @@
-import 'file:///C:/Users/Maicol/AndroidStudioProjects/crispy_starter/lib/BLoC/Helpers/bloc_base.dart';
-import 'file:///C:/Users/Maicol/AndroidStudioProjects/crispy_starter/lib/BLoC/Helpers/bloc_event_state.dart';
-import 'package:crispy_starter/BLoC/increment_counter_bloc.dart';
-import 'package:crispy_starter/Events/increment_counter_event.dart';
-import 'package:crispy_starter/States/increment_counter_state.dart';
+import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
+import 'package:crispy_starter/UI/Widgets/card_list.dart';
+import 'package:crispy_starter/UI/Widgets/data_list.dart';
 import 'package:crispy_starter/api_keys.dart';
+import 'package:crispy_starter/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import 'BLoC/Helpers/bloc_event_state_builder.dart';
+import 'BLoC/Helpers/bloc_base.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,13 +22,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BlocProvider<IncrementCounterBloc>(
-          blocBuilder: ()  => IncrementCounterBloc(),
-          child: CrispyStarter()),
+      home: BlocProvider<SwipeCardBloc>(
+          blocBuilder: () => SwipeCardBloc(), child: CrispyStarter()),
     );
   }
 }
-
 
 class CrispyStarter extends StatefulWidget {
   @override
@@ -39,13 +36,10 @@ class CrispyStarter extends StatefulWidget {
 class _CrispyStarterState extends State<CrispyStarter> {
   @override
   Widget build(BuildContext context) {
-
-    IncrementCounterBloc counterBloc = BlocProvider.of<IncrementCounterBloc>(context);
-
-    print('$counterBloc');
     void getDataFromIMDBAPI() async {
       try {
-        Response response = await Dio().get("https://imdb-api.com/en/API/Top250Movies/$imbd_api_key");
+        Response response = await Dio()
+            .get("https://imdb-api.com/en/API/Top250Movies/$imbd_api_key");
         print(response);
       } catch (e) {
         print(e);
@@ -53,26 +47,61 @@ class _CrispyStarterState extends State<CrispyStarter> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text("Crispy Starter"),),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        onPressed: ()=>counterBloc.emitEvent(IncrementCounterEvent()),
-        child: Icon(
-          Icons.add,
-          size: 38,
-        ),
-      ),
-      body: Container(
-        child: BlocEventStateBuilder<IncrementCounterEvent, IncrementCounterState>(
-          bloc: counterBloc,
-          builder: (BuildContext context, IncrementCounterState state) {
-            return Center(
-              child: Text(
-                state.counter.toString()
-              ),
-            );
-          }
+      body: ScrollConfiguration(
+        behavior: NoGlow(),
+        child: CustomScrollView(
 
+          slivers: [
+            SliverAppBar(
+              backgroundColor: Colors.green,
+              pinned: true,
+              floating: false,
+              expandedHeight: 250.0,
+              collapsedHeight: 180,
+              title: Text('I miei conti'),
+              centerTitle: true,
+              flexibleSpace: SizedBox.expand(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [
+                          Colors.red,
+                          Colors.red[300],
+                        ],
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                        stops: [0.0, 0.8],
+                        tileMode: TileMode.clamp),
+                  ),
+                  child: Container(
+                    margin:
+                        EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
+                    child: SizedBox(
+                        height: 100,
+                        width: 200,
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.red[800],
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black26,
+                                      spreadRadius: 5,
+                                      blurRadius: 30)
+                                ]),
+                            child: Center(child: Text("TEST TEST TEST")))),
+                  ),
+                ),
+              ),
+            ),
+            DataList()
+          ],
+
+//        child: Column(
+//          children: [
+//            Container(height: 200, child: CardList()),
+//            Expanded(child: DataList()),
+//          ],
         ),
       ),
     );
