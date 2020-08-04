@@ -5,6 +5,7 @@ import 'package:crispy_starter/api_keys.dart';
 import 'package:crispy_starter/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'BLoC/Helpers/bloc_base.dart';
 
@@ -34,6 +35,9 @@ class CrispyStarter extends StatefulWidget {
 }
 
 class _CrispyStarterState extends State<CrispyStarter> {
+
+  PageController _pageController;
+
   @override
   Widget build(BuildContext context) {
     void getDataFromIMDBAPI() async {
@@ -50,7 +54,6 @@ class _CrispyStarterState extends State<CrispyStarter> {
       body: ScrollConfiguration(
         behavior: NoGlow(),
         child: CustomScrollView(
-
           slivers: [
             SliverAppBar(
               backgroundColor: Colors.green,
@@ -61,37 +64,7 @@ class _CrispyStarterState extends State<CrispyStarter> {
               title: Text('I miei conti'),
               centerTitle: true,
               flexibleSpace: SizedBox.expand(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          Colors.red,
-                          Colors.red[300],
-                        ],
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        stops: [0.0, 0.8],
-                        tileMode: TileMode.clamp),
-                  ),
-                  child: Container(
-                    margin:
-                        EdgeInsets.only(top: 80, left: 40, right: 40, bottom: 60),
-                    child: SizedBox(
-                        height: 100,
-                        width: 200,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.red[800],
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black26,
-                                      spreadRadius: 5,
-                                      blurRadius: 30)
-                                ]),
-                            child: Center(child: Text("TEST TEST TEST")))),
-                  ),
-                ),
+                child: CardList(controller: _pageController),
               ),
             ),
             DataList()
