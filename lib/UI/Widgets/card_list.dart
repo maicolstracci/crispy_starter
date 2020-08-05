@@ -1,14 +1,17 @@
 import 'package:crispy_starter/BLoC/Helpers/bloc_base.dart';
 import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
 import 'package:crispy_starter/Events/swipe_card_event.dart';
+import 'package:crispy_starter/UI/Widgets/data_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
 
 import '../../constants.dart';
 
 class CardList implements SliverPersistentHeaderDelegate {
-  PageController pageController;
+  PageController pageController = Singleton().pageController;
   Animatable<Decoration> background;
+
+  CardList();
 
   @override
   Widget build(
@@ -20,26 +23,10 @@ class CardList implements SliverPersistentHeaderDelegate {
         weight: 1.0,
         tween: DecorationTween(
           begin: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-                  Color(0xff74ebd5),
-                  Color(0xffACB6E5),
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                stops: [0.3, 1],
-                tileMode: TileMode.clamp),
+            gradient: gradients[0],
           ),
           end: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-                  Colors.redAccent,
-                  Colors.red[800],
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                stops: [0.3, 1],
-                tileMode: TileMode.clamp),
+            gradient: gradients[1],
           ),
         ),
       ),
@@ -47,26 +34,10 @@ class CardList implements SliverPersistentHeaderDelegate {
         weight: 1.0,
         tween: DecorationTween(
           begin: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-                  Colors.redAccent,
-                  Colors.red[800],
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                stops: [0.3, 1],
-                tileMode: TileMode.clamp),
+            gradient: gradients[1],
           ),
           end: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-                  Colors.green,
-                  Colors.green[900],
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                stops: [0.3, 1],
-                tileMode: TileMode.clamp),
+            gradient: gradients[2],
           ),
         ),
       ),
@@ -74,36 +45,21 @@ class CardList implements SliverPersistentHeaderDelegate {
         weight: 1.0,
         tween: DecorationTween(
           begin: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-                  Colors.green,
-                  Colors.green[900],
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                stops: [0.3, 1],
-                tileMode: TileMode.clamp),
+            gradient: gradients[2],
           ),
           end: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-                  Colors.blue,
-                  Colors.blue[900],
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                stops: [0.3, 1],
-                tileMode: TileMode.clamp),
+            gradient: gradients[3],
           ),
         ),
       ),
     ]);
-    pageController = PageController();
+
 
     return SizedBox.expand(
         child: AnimatedBuilder(
       animation: pageController,
       builder: (context, child) {
+
         final color = pageController.hasClients ? pageController.page / 3 : .0;
 
         return DecoratedBox(

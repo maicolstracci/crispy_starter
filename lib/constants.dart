@@ -15,7 +15,7 @@ List<Gradient> gradients = [
   LinearGradient(
       colors: [
         Colors.redAccent,
-        Colors.red[800],
+        Colors.red[200],
       ],
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
@@ -24,7 +24,7 @@ List<Gradient> gradients = [
   LinearGradient(
       colors: [
         Colors.green,
-        Colors.green[900],
+        Colors.green[700],
       ],
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
@@ -33,7 +33,7 @@ List<Gradient> gradients = [
   LinearGradient(
       colors: [
         Colors.blue,
-        Colors.blue[900],
+        Colors.blue[200],
       ],
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
