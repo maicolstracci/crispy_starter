@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'BLoC/Helpers/bloc_base.dart';
+import 'UI/Widgets/card_list.dart';
+import 'UI/Widgets/data_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,9 +37,6 @@ class CrispyStarter extends StatefulWidget {
 }
 
 class _CrispyStarterState extends State<CrispyStarter> {
-
-  PageController _pageController;
-
   @override
   Widget build(BuildContext context) {
     void getDataFromIMDBAPI() async {
@@ -63,18 +62,11 @@ class _CrispyStarterState extends State<CrispyStarter> {
               collapsedHeight: 180,
               title: Text('I miei conti'),
               centerTitle: true,
-              flexibleSpace: SizedBox.expand(
-                child: CardList(controller: _pageController),
-              ),
+              //Flexible space non ci da la possibilita' di catturare la gesture per swipare direttamente dalla card
+              flexibleSpace: CardList(),
             ),
             DataList()
           ],
-
-//        child: Column(
-//          children: [
-//            Container(height: 200, child: CardList()),
-//            Expanded(child: DataList()),
-//          ],
         ),
       ),
     );
