@@ -35,7 +35,6 @@ class CrispyStarter extends StatefulWidget {
 }
 
 class _CrispyStarterState extends State<CrispyStarter> {
-
   PageController _pageController;
 
   @override
@@ -55,26 +54,16 @@ class _CrispyStarterState extends State<CrispyStarter> {
         behavior: NoGlow(),
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.green,
+            SliverPersistentHeader(
               pinned: true,
               floating: false,
-              expandedHeight: 250.0,
-              collapsedHeight: 180,
-              title: Text('I miei conti'),
-              centerTitle: true,
-              flexibleSpace: SizedBox.expand(
-                child: CardList(controller: _pageController),
-              ),
+              delegate: CardList(),
             ),
             DataList()
+//            SliverFillRemaining(
+//              child: Center(child: Text("Test")),
+//            )
           ],
-
-//        child: Column(
-//          children: [
-//            Container(height: 200, child: CardList()),
-//            Expanded(child: DataList()),
-//          ],
         ),
       ),
     );

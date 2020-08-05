@@ -15,7 +15,8 @@ class DataList extends StatelessWidget {
       builder: (BuildContext context, SwipeCardState state) => SliverList(
         delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) =>
-                Padding(
+                Container(
+                  color: index %2 == 0 ? Colors.redAccent[100] : Colors.redAccent[200],
                   padding: const EdgeInsets.all(25.0),
                   child: Text(state.currentPage.toString(),textAlign: TextAlign.center,),
                 ),
