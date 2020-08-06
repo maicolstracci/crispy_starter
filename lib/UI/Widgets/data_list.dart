@@ -25,35 +25,43 @@ class DataList extends StatelessWidget {
         bloc: swipeCardBloc,
         builder: (BuildContext context, SwipeCardState state) => state.isLoading
             ? Center(
-              child: SizedBox(
-                  height: 100, width: 100, child: CircularProgressIndicator()),
-            )
-            : ListView.separated(
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) => Container(
-                      height: 50,
-                      color: Colors.blue[100],
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            state.data[index].title,
-                            textAlign: TextAlign.center,
-                          ), Text(
-                            state.data[index].imDbRating,
-                            textAlign: TextAlign.center,
-                          ), Text(
-                            state.data[index].year,
-                            textAlign: TextAlign.center,
+                child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CircularProgressIndicator()),
+              )
+            : state.data.length == 0
+                ? Center(
+                    child: Text("Finite le free api calls :'("),
+                  )
+                : ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) => Container(
+                          height: 50,
+                          color: Colors.blue[100],
+                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                state.data[index].title,
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.data[index].imDbRating,
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.data[index].year,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                separatorBuilder: (context, index) => SizedBox(
-                      height: 30,
-                    ),
-                itemCount: state.data.length),
+                        ),
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: 30,
+                        ),
+                    itemCount: state.data.length),
       ),
     );
   }
