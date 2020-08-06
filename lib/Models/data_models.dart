@@ -6,16 +6,16 @@ class MovieData {
 
   MovieData.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      movies = new List<Movie>();
+      movies = List<Movie>();
       json['items'].forEach((v) {
-        movies.add(new Movie.fromJson(v));
+        movies.add(Movie.fromJson(v));
       });
     }
     errorMessage = json['errorMessage'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.movies != null) {
       data['items'] = this.movies.map((v) => v.toJson()).toList();
     }
@@ -59,7 +59,7 @@ class Movie {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['rank'] = this.rank;
     data['title'] = this.title;

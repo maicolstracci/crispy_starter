@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:crispy_starter/Events/swipe_card_event.dart';
 import 'package:crispy_starter/Models/data_models.dart';
 import 'package:crispy_starter/States/swipe_card_state.dart';
 import 'package:crispy_starter/api_keys.dart';
 import 'package:dio/dio.dart';
-
 import 'Helpers/bloc_event_state.dart';
 
 class SwipeCardBloc extends BlocEventStateBase<SwipeCardEvent, SwipeCardState> {
@@ -15,7 +12,7 @@ class SwipeCardBloc extends BlocEventStateBase<SwipeCardEvent, SwipeCardState> {
 
     try {
       Response response = await Dio()
-          .get("https://imdb-api.com/en/API/$endPoint/$imbd_api_key");
+          .get("https://imdb-api.com/en/API/$endPoint/$kImdbApiKey");
 
       MovieData movieData = MovieData.fromJson(response.data);
 

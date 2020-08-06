@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class CardListHeader extends StatefulWidget {
   final ValueNotifier<double> notifier;
-  double shrinkOffset = 0;
+  final double shrinkOffset;
 
   CardListHeader({this.notifier, this.shrinkOffset});
 
@@ -20,13 +20,17 @@ class _CardListHeaderState extends State<CardListHeader> {
   int _previousPage;
   PageController _pageController;
 
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _onScroll() {
     if (_pageController.page.toInt() == _pageController.page) {
       _previousPage = _pageController.page.toInt();
     }
     widget.notifier?.value = _pageController.page - _previousPage;
-
   }
 
   @override
@@ -43,8 +47,6 @@ class _CardListHeaderState extends State<CardListHeader> {
   @override
   Widget build(BuildContext context) {
     SwipeCardBloc swipeCardBloc = BlocProvider.of<SwipeCardBloc>(context);
-
-
 
     return SizedBox.expand(
         child: AnimatedBuilder(
@@ -78,26 +80,27 @@ class ContainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return AnimatedContainer(
       duration: Duration(seconds: 1),
       curve: Curves.easeInOut,
       child: Container(
-        decoration: BoxDecoration(
-            gradient: gradients[index],
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                spreadRadius: 1,
-                blurRadius: 15,
-              )
-            ],
-            borderRadius: BorderRadius.circular(6)),
-        margin: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-        child: Center(
-          child: Text(cardTitles[index], textAlign: TextAlign.center,),
-        )
-      ),
+          decoration: BoxDecoration(
+              gradient: gradients[index],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  spreadRadius: 1,
+                  blurRadius: 15,
+                )
+              ],
+              borderRadius: BorderRadius.circular(6)),
+          margin: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+          child: Center(
+            child: Text(
+              cardTitles[index],
+              textAlign: TextAlign.center,
+            ),
+          )),
     );
   }
 }

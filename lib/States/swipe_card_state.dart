@@ -3,21 +3,19 @@ import 'package:crispy_starter/Models/data_models.dart';
 
 class SwipeCardState extends BlocState {
   SwipeCardState(
-      {this.currentCardTitle, this.currentPage, this.isLoading, this.data});
-
-  String currentCardTitle;
+      {this.currentPage, this.isLoading, this.data});
+  
   int currentPage;
   bool isLoading;
   List<Movie> data;
 
   factory SwipeCardState.initialise() {
     return SwipeCardState(
-        currentCardTitle: cardTitles[0], currentPage: 0, isLoading: true);
+        currentPage: 0, isLoading: true);
   }
 
   factory SwipeCardState.updateTitle(currentPage) {
     return SwipeCardState(
-      currentCardTitle: cardTitles[currentPage],
       currentPage: currentPage,
     );
   }

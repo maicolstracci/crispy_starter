@@ -1,9 +1,7 @@
 import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
 import 'package:crispy_starter/UI/Widgets/card_list.dart';
 import 'package:crispy_starter/UI/Widgets/data_list.dart';
-import 'package:crispy_starter/api_keys.dart';
 import 'package:crispy_starter/constants.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'BLoC/Helpers/bloc_base.dart';

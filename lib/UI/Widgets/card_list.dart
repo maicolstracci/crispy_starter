@@ -1,12 +1,8 @@
-import 'package:crispy_starter/BLoC/Helpers/bloc_base.dart';
-import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
-import 'package:crispy_starter/Events/swipe_card_event.dart';
-import 'package:crispy_starter/UI/Widgets/data_list.dart';
+
 import 'package:crispy_starter/UI/Widgets/persistent_header.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/rendering/sliver_persistent_header.dart';
+import 'package:flutter/rendering.dart';
 
-import '../../constants.dart';
 
 
 

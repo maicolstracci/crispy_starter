@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-List<MaterialColor> colors = [Colors.red, Colors.green, Colors.blue];
-
 List<Gradient> gradients = [
   LinearGradient(
       colors: [
@@ -14,8 +12,9 @@ List<Gradient> gradients = [
       tileMode: TileMode.clamp),
   LinearGradient(
       colors: [
+
+        Colors.red[700],
         Colors.redAccent,
-        Colors.red[200],
       ],
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
@@ -23,8 +22,8 @@ List<Gradient> gradients = [
       tileMode: TileMode.clamp),
   LinearGradient(
       colors: [
-        Colors.green,
-        Colors.green[700],
+        Colors.grey[300],
+        Colors.grey[500],
       ],
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
@@ -32,8 +31,8 @@ List<Gradient> gradients = [
       tileMode: TileMode.clamp),
   LinearGradient(
       colors: [
-        Colors.blue,
-        Colors.blue[200],
+        Colors.blue[900],
+        Colors.blue[800],
       ],
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
