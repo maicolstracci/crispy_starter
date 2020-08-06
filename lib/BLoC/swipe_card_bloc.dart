@@ -6,7 +6,7 @@ import 'Helpers/bloc_event_state.dart';
 class SwipeCardBloc
     extends BlocEventStateBase<SwipeCardEvent, SwipeCardState> {
   SwipeCardBloc()
-      : super(initialState: SwipeCardState.initialise(0));
+      : super(initialState: SwipeCardState.initialise());
 
   @override
   Stream<SwipeCardState> eventHandler(
@@ -14,7 +14,12 @@ class SwipeCardBloc
 
     if (event is SwipeCardEvent) {
 
-      yield SwipeCardState.updatePage(event.page);
+      yield SwipeCardState.updateTitle(event.page);
+      yield SwipeCardState.loadingInfo();
+      await Future.delayed(Duration(seconds: 4));
+      yield SwipeCardState.finishedLoading(data:["Ciao","come","stai","?"]);
+
+
     }
   }
 }

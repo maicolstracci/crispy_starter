@@ -1,12 +1,10 @@
 import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
 import 'package:crispy_starter/UI/Widgets/card_list.dart';
 import 'package:crispy_starter/UI/Widgets/data_list.dart';
-import 'package:crispy_starter/UI/Widgets/data_list_2.dart';
 import 'package:crispy_starter/api_keys.dart';
 import 'package:crispy_starter/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import 'BLoC/Helpers/bloc_base.dart';
 
@@ -36,6 +34,20 @@ class CrispyStarter extends StatefulWidget {
 }
 
 class _CrispyStarterState extends State<CrispyStarter> {
+  ValueNotifier<double> _notifier;
+
+  @override
+  void dispose() {
+    _notifier?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _notifier = ValueNotifier<double>(0);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     void getDataFromIMDBAPI() async {
@@ -52,32 +64,17 @@ class _CrispyStarterState extends State<CrispyStarter> {
       body: ScrollConfiguration(
         behavior: NoGlow(),
         child: NestedScrollView(
-            headerSliverBuilder: (ctx, any) => [
-                  SliverPersistentHeader(
-                    pinned: true,
-                    floating: false,
-                    delegate: CardList(),
-                  ),
-                ],
-            body: DataList2()
-
-//            SliverList(
-//
-//              delegate: SliverChildBuilderDelegate(
-//                      (BuildContext context, int index) => Container(
-//                    height: 40,
-//                    margin: EdgeInsets.all(8),
-//                    color: Colors.redAccent,
-//                    child: Text("testo"),
-//                  ),
-//                  childCount: 20),
-//            )
-//            DataList()
-//            SliverFillRemaining(
-//              child: Center(child: Text("Test")),
-//            )
-
+          headerSliverBuilder: (ctx, any) => [
+            SliverPersistentHeader(
+              pinned: true,
+              floating: false,
+              delegate: CardList(notifier: _notifier),
             ),
+          ],
+          body: DataList(
+            notifier: _notifier,
+          ),
+        ),
       ),
     );
   }

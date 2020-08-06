@@ -41,6 +41,42 @@ List<Gradient> gradients = [
       tileMode: TileMode.clamp),
 ];
 
+Animatable<Decoration> background = TweenSequence<Decoration>([
+  TweenSequenceItem(
+    weight: 1.0,
+    tween: DecorationTween(
+      begin: BoxDecoration(
+        gradient: gradients[0],
+      ),
+      end: BoxDecoration(
+        gradient: gradients[1],
+      ),
+    ),
+  ),
+  TweenSequenceItem(
+    weight: 1.0,
+    tween: DecorationTween(
+      begin: BoxDecoration(
+        gradient: gradients[1],
+      ),
+      end: BoxDecoration(
+        gradient: gradients[2],
+      ),
+    ),
+  ),
+  TweenSequenceItem(
+    weight: 1.0,
+    tween: DecorationTween(
+      begin: BoxDecoration(
+        gradient: gradients[2],
+      ),
+      end: BoxDecoration(
+        gradient: gradients[3],
+      ),
+    ),
+  ),
+]);
+
 class NoGlow extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
