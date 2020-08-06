@@ -1,24 +1,18 @@
 import 'package:crispy_starter/BLoC/Helpers/bloc_event_state.dart';
+import 'package:crispy_starter/Models/data_models.dart';
 
 class SwipeCardState extends BlocState {
-  SwipeCardState({
-    this.currentCardTitle,
-    this.currentPage,
-    this.isLoading = false,
-    this.data
-  });
+  SwipeCardState(
+      {this.currentCardTitle, this.currentPage, this.isLoading, this.data});
 
   String currentCardTitle;
   int currentPage;
   bool isLoading;
-  List<String> data;
+  List<Movie> data;
 
   factory SwipeCardState.initialise() {
     return SwipeCardState(
-      currentCardTitle: cardTitles[0],
-      currentPage:0,
-      isLoading: false
-    );
+        currentCardTitle: cardTitles[0], currentPage: 0, isLoading: true);
   }
 
   factory SwipeCardState.updateTitle(currentPage) {
@@ -29,23 +23,17 @@ class SwipeCardState extends BlocState {
   }
 
   factory SwipeCardState.loadingInfo() {
-    return SwipeCardState(
-      isLoading: true
-    );
+    return SwipeCardState(isLoading: true);
   }
 
-  factory SwipeCardState.finishedLoading({List<String> data}) {
-    return SwipeCardState(
-        isLoading: false,
-      data:data
-    );
+  factory SwipeCardState.finishedLoading({List<Movie> data}) {
+    return SwipeCardState(isLoading: false, data: data);
   }
-
 }
 
 List<String> cardTitles = [
-  "Top 25 movies",
-  "Top 20 movies",
-  "Top 12 movies",
-  "Top 5 movies",
+  "Top 250 movies",
+  "Top 250 series",
+  "Most popular movies",
+  "Most popular series",
 ];

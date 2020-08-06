@@ -20,11 +20,13 @@ class _CardListHeaderState extends State<CardListHeader> {
   int _previousPage;
   PageController _pageController;
 
+
   void _onScroll() {
     if (_pageController.page.toInt() == _pageController.page) {
       _previousPage = _pageController.page.toInt();
     }
     widget.notifier?.value = _pageController.page - _previousPage;
+
   }
 
   @override
@@ -42,13 +44,14 @@ class _CardListHeaderState extends State<CardListHeader> {
   Widget build(BuildContext context) {
     SwipeCardBloc swipeCardBloc = BlocProvider.of<SwipeCardBloc>(context);
 
+
+
     return SizedBox.expand(
         child: AnimatedBuilder(
       animation: _pageController,
       builder: (context, child) {
         final color =
             _pageController.hasClients ? _pageController.page / 3 : .0;
-
         return DecoratedBox(
             decoration: background.evaluate(AlwaysStoppedAnimation(color)),
             child: child);

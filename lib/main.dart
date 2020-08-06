@@ -50,15 +50,7 @@ class _CrispyStarterState extends State<CrispyStarter> {
 
   @override
   Widget build(BuildContext context) {
-    void getDataFromIMDBAPI() async {
-      try {
-        Response response = await Dio()
-            .get("https://imdb-api.com/en/API/Top250Movies/$imbd_api_key");
-        print(response);
-      } catch (e) {
-        print(e);
-      }
-    }
+
 
     return Scaffold(
       body: ScrollConfiguration(

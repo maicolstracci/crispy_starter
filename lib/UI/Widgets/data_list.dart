@@ -34,11 +34,20 @@ class DataList extends StatelessWidget {
                       height: 50,
                       color: Colors.blue[100],
                       margin: EdgeInsets.symmetric(horizontal: 16),
-                      child: Center(
-                        child: Text(
-                          state.data[index],
-                          textAlign: TextAlign.center,
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            state.data[index].title,
+                            textAlign: TextAlign.center,
+                          ), Text(
+                            state.data[index].imDbRating,
+                            textAlign: TextAlign.center,
+                          ), Text(
+                            state.data[index].year,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
                 separatorBuilder: (context, index) => SizedBox(
