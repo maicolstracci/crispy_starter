@@ -1,9 +1,6 @@
-
 import 'package:crispy_starter/UI/Widgets/persistent_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
-
 
 
 class CardList implements SliverPersistentHeaderDelegate {

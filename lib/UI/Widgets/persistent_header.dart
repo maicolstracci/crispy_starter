@@ -20,15 +20,19 @@ class _CardListHeaderState extends State<CardListHeader> {
   int _previousPage;
   PageController _pageController;
 
+  ValueNotifier<int> pageChangedNotifier = ValueNotifier<int>(0);
+
   @override
   void dispose() {
     _pageController.dispose();
+    pageChangedNotifier.dispose();
     super.dispose();
   }
 
   void _onScroll() {
     if (_pageController.page.toInt() == _pageController.page) {
       _previousPage = _pageController.page.toInt();
+      pageChangedNotifier.value = _previousPage;
     }
     widget.notifier?.value = _pageController.page - _previousPage;
   }
@@ -41,6 +45,7 @@ class _CardListHeaderState extends State<CardListHeader> {
     )..addListener(_onScroll);
 
     _previousPage = _pageController.initialPage;
+
     super.initState();
   }
 
@@ -58,15 +63,22 @@ class _CardListHeaderState extends State<CardListHeader> {
             decoration: background.evaluate(AlwaysStoppedAnimation(color)),
             child: child);
       },
-      child: PageView.builder(
-          controller: _pageController,
-          onPageChanged: (page) =>
-              swipeCardBloc.emitEvent(SwipeCardEvent(page: page)),
-          itemBuilder: (cxt, index) => ContainerCard(
-                index: index,
-                shrinkOffset: widget.shrinkOffset,
-              ),
-          itemCount: 4),
+      child: ValueListenableBuilder<int>(
+        valueListenable: pageChangedNotifier,
+        builder: (cxt, page, child) {
+          swipeCardBloc.emitEvent(SwipeCardEvent(page: page));
+          return child;
+        },
+        child: PageView.builder(
+            controller: _pageController,
+//            onPageChanged: (page) =>
+//                swipeCardBloc.emitEvent(SwipeCardEvent(page: page)),
+            itemBuilder: (cxt, index) => ContainerCard(
+                  index: index,
+                  shrinkOffset: widget.shrinkOffset,
+                ),
+            itemCount: 4),
+      ),
     ));
   }
 }
@@ -80,27 +92,39 @@ class ContainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(seconds: 1),
-      curve: Curves.easeInOut,
-      child: Container(
-          decoration: BoxDecoration(
-              gradient: gradients[index],
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  spreadRadius: 1,
-                  blurRadius: 15,
-                )
-              ],
-              borderRadius: BorderRadius.circular(6)),
-          margin: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-          child: Center(
-            child: Text(
+    return Container(
+        decoration: BoxDecoration(
+            gradient: gradients[index],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                spreadRadius: 1,
+                blurRadius: 15,
+              )
+            ],
+            borderRadius: BorderRadius.circular(6)),
+        margin: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Opacity(
+                opacity: (1 - (shrinkOffset / 70)).clamp(0.0, 1.0),
+                child: Text(
+                  "Testo che scompare",
+                  textAlign: TextAlign.start,
+                )),
+            Text(
               cardTitles[index],
               textAlign: TextAlign.center,
             ),
-          )),
-    );
+            Opacity(
+                opacity: (1 - (shrinkOffset / 70)).clamp(0.0, 1.0),
+                child: Text(
+                  "Testo che scompare",
+                  textAlign: TextAlign.end,
+                ))
+          ],
+        ));
   }
 }

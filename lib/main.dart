@@ -3,7 +3,6 @@ import 'package:crispy_starter/UI/Widgets/card_list.dart';
 import 'package:crispy_starter/UI/Widgets/data_list.dart';
 import 'package:crispy_starter/constants.dart';
 import 'package:flutter/material.dart';
-
 import 'BLoC/Helpers/bloc_base.dart';
 
 void main() {

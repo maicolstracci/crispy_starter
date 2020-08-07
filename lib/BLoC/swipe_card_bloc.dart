@@ -1,27 +1,12 @@
 import 'package:crispy_starter/Events/swipe_card_event.dart';
-import 'package:crispy_starter/Models/data_models.dart';
 import 'package:crispy_starter/States/swipe_card_state.dart';
-import 'package:crispy_starter/api_keys.dart';
-import 'package:dio/dio.dart';
+import 'package:crispy_starter/services/networking.dart';
 import 'Helpers/bloc_event_state.dart';
 
 class SwipeCardBloc extends BlocEventStateBase<SwipeCardEvent, SwipeCardState> {
   SwipeCardBloc() : super(initialState: SwipeCardState.initialise());
 
-  Future<List<Movie>> requestInfo({String endPoint}) async {
-
-    try {
-      Response response = await Dio()
-          .get("https://imdb-api.com/en/API/$endPoint/$kImdbApiKey");
-
-      MovieData movieData = MovieData.fromJson(response.data);
-
-      return movieData.movies;
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
+ NetworkingService networkingService = NetworkingService();
 
   @override
   Stream<SwipeCardState> eventHandler(
@@ -29,17 +14,13 @@ class SwipeCardBloc extends BlocEventStateBase<SwipeCardEvent, SwipeCardState> {
     if (event is SwipeCardEvent) {
       yield SwipeCardState.updateTitle(event.page);
       yield SwipeCardState.loadingInfo();
-      var movieList = await requestInfo(
-          endPoint: imdbEndpoint[event.page]);
+
+      var movieList = await networkingService.requestInfo(
+          endPoint: networkingService.imdbEndPoint[event.page]);
 
       yield SwipeCardState.finishedLoading(data: movieList);
     }
   }
 }
 
-List<String > imdbEndpoint = [
-  "Top250Movies",
-  "Top250TVs",
-  "MostPopularMovies",
-  "MostPopularTVs"
-];
+
