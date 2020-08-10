@@ -3,6 +3,7 @@ import 'package:crispy_starter/BLoC/Helpers/bloc_event_state_builder.dart';
 import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
 import 'package:crispy_starter/Events/swipe_card_event.dart';
 import 'package:crispy_starter/States/swipe_card_state.dart';
+import 'package:crispy_starter/UI/screens/film_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -16,13 +17,11 @@ class DataList extends StatefulWidget {
 }
 
 class _DataListState extends State<DataList> {
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SwipeCardBloc swipeCardBloc = BlocProvider.of<SwipeCardBloc>(context);
       swipeCardBloc.emitEvent(SwipeCardEvent(page: 0));
-
     });
     super.initState();
   }
@@ -33,7 +32,8 @@ class _DataListState extends State<DataList> {
     return AnimatedBuilder(
       animation: widget.notifier,
       builder: (context, child) => Transform.translate(
-        offset: Offset(-widget.notifier.value * MediaQuery.of(context).size.width, 0),
+        offset: Offset(
+            -widget.notifier.value * MediaQuery.of(context).size.width, 0),
         child: child,
       ),
       child: BlocEventStateBuilder<SwipeCardEvent, SwipeCardState>(
@@ -54,25 +54,41 @@ class _DataListState extends State<DataList> {
               return ListView.separated(
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Container(
-                        height: 50,
-                        color: Colors.blue[100],
+                        height: 70,
+                        width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              state.data[index].title,
-                              textAlign: TextAlign.center,
+                        child: Hero(
+                          tag: "Card$index",
+                          child: MaterialButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  '/filmDetailsScreen',
+                                  arguments: FilmDetailsArguments(
+                                      state.data[index],
+                                      cardTag: "Card$index"));
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            Text(
-                              state.data[index].imDbRating,
-                              textAlign: TextAlign.center,
+                            color: Colors.blue,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  state.data[index].title,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  state.data[index].imDbRating,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  state.data[index].year,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
-                            Text(
-                              state.data[index].year,
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                   separatorBuilder: (context, index) => SizedBox(

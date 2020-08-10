@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:crispy_starter/BLoC/Helpers/bloc_base.dart';
 import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
 import 'package:crispy_starter/Events/swipe_card_event.dart';
@@ -20,20 +21,21 @@ class _CardListHeaderState extends State<CardListHeader> {
   int _previousPage;
   PageController _pageController;
 
-  ValueNotifier<int> pageChangedNotifier = ValueNotifier<int>(0);
-
   @override
   void dispose() {
+    _pageController.removeListener(_onScroll);
     _pageController.dispose();
-    pageChangedNotifier.dispose();
     super.dispose();
   }
 
   void _onScroll() {
     if (_pageController.page.toInt() == _pageController.page) {
       _previousPage = _pageController.page.toInt();
-      pageChangedNotifier.value = _previousPage;
+
+      SwipeCardBloc swipeCardBloc = BlocProvider.of<SwipeCardBloc>(context);
+      swipeCardBloc.emitEvent(SwipeCardEvent(page: _previousPage));
     }
+
     widget.notifier?.value = _pageController.page - _previousPage;
   }
 
@@ -51,35 +53,24 @@ class _CardListHeaderState extends State<CardListHeader> {
 
   @override
   Widget build(BuildContext context) {
-    SwipeCardBloc swipeCardBloc = BlocProvider.of<SwipeCardBloc>(context);
-
     return SizedBox.expand(
         child: AnimatedBuilder(
-      animation: _pageController,
-      builder: (context, child) {
-        final color =
-            _pageController.hasClients ? _pageController.page / 3 : .0;
-        return DecoratedBox(
-            decoration: background.evaluate(AlwaysStoppedAnimation(color)),
-            child: child);
-      },
-      child: ValueListenableBuilder<int>(
-        valueListenable: pageChangedNotifier,
-        builder: (cxt, page, child) {
-          swipeCardBloc.emitEvent(SwipeCardEvent(page: page));
-          return child;
-        },
-        child: PageView.builder(
-            controller: _pageController,
-//            onPageChanged: (page) =>
-//                swipeCardBloc.emitEvent(SwipeCardEvent(page: page)),
-            itemBuilder: (cxt, index) => ContainerCard(
-                  index: index,
-                  shrinkOffset: widget.shrinkOffset,
-                ),
-            itemCount: 4),
-      ),
-    ));
+            animation: _pageController,
+            builder: (context, child) {
+              final color =
+                  _pageController.hasClients ? _pageController.page / 3 : .0;
+              return DecoratedBox(
+                  decoration:
+                      background.evaluate(AlwaysStoppedAnimation(color)),
+                  child: child);
+            },
+            child: PageView.builder(
+                controller: _pageController,
+                itemBuilder: (cxt, index) => ContainerCard(
+                      index: index,
+                      shrinkOffset: widget.shrinkOffset,
+                    ),
+                itemCount: 4)));
   }
 }
 

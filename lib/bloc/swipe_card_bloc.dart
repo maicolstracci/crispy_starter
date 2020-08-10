@@ -15,7 +15,7 @@ class SwipeCardBloc extends BlocEventStateBase<SwipeCardEvent, SwipeCardState> {
       yield SwipeCardState.updateTitle(event.page);
       yield SwipeCardState.loadingInfo();
 
-      var movieList = await networkingService.requestInfo(
+      var movieList = await networkingService.getInfo(
           endPoint: networkingService.imdbEndPoint[event.page]);
 
       yield SwipeCardState.finishedLoading(data: movieList);
