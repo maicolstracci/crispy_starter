@@ -3,11 +3,13 @@ import 'package:crispy_starter/UI/Widgets/card_list.dart';
 import 'package:crispy_starter/UI/Widgets/data_list.dart';
 import 'package:crispy_starter/UI/screens/film_details_screen.dart';
 import 'package:crispy_starter/constants.dart';
+import 'package:crispy_starter/services/networking.dart';
 import 'package:flutter/material.dart';
 
 import 'BLoC/Helpers/bloc_base.dart';
 
 void main() {
+  NetworkingService().initNetworkingServiceInterceptor();
   runApp(MyApp());
 }
 
