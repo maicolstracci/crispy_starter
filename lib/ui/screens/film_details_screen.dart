@@ -1,4 +1,4 @@
-import 'package:crispy_starter/Models/data_models.dart';
+import 'package:crispy_starter/models/data_models.dart';
 import 'package:crispy_starter/ui/widgets/heart_widget.dart';
 import 'package:flutter/material.dart';
 

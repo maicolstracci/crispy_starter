@@ -1,10 +1,8 @@
-import 'package:crispy_starter/UI/Widgets/persistent_header.dart';
+import 'package:crispy_starter/ui/widgets/persistent_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-
 class CardList implements SliverPersistentHeaderDelegate {
-
   ValueNotifier<double> notifier;
 
   CardList({this.notifier});
@@ -12,7 +10,6 @@ class CardList implements SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-
     return CardListHeader(notifier: notifier, shrinkOffset: shrinkOffset);
   }
 
@@ -33,4 +30,3 @@ class CardList implements SliverPersistentHeaderDelegate {
   @override
   OverScrollHeaderStretchConfiguration get stretchConfiguration => null;
 }
-

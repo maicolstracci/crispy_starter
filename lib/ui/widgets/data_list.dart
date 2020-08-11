@@ -1,11 +1,11 @@
-import 'package:crispy_starter/BLoC/Helpers/bloc_base.dart';
-import 'package:crispy_starter/BLoC/Helpers/bloc_event_state_builder.dart';
-import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
-import 'package:crispy_starter/Events/swipe_card_event.dart';
-import 'package:crispy_starter/States/swipe_card_state.dart';
-import 'package:crispy_starter/UI/screens/film_details_screen.dart';
+import 'package:crispy_starter/bloc/helpers/bloc_base.dart';
+import 'package:crispy_starter/bloc/helpers/bloc_event_state_builder.dart';
+import 'package:crispy_starter/bloc/swipe_card_bloc.dart';
+import 'package:crispy_starter/events/swipe_card_event.dart';
+import 'package:crispy_starter/router.dart';
+import 'package:crispy_starter/states/swipe_card_state.dart';
+import 'package:crispy_starter/ui/screens/film_details_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class DataList extends StatefulWidget {
   final ValueNotifier<double> notifier;
@@ -54,7 +54,7 @@ class _DataListState extends State<DataList> {
               return ListView.separated(
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Container(
-                        height: 70,
+                        height: 90,
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.symmetric(horizontal: 16),
                         child: Hero(
@@ -62,7 +62,7 @@ class _DataListState extends State<DataList> {
                           child: MaterialButton(
                             onPressed: () {
                               Navigator.of(context).pushNamed(
-                                  '/filmDetailsScreen',
+                                  Router.filmDetailsRoute,
                                   arguments: FilmDetailsArguments(
                                       state.data[index],
                                       cardTag: "Card$index"));

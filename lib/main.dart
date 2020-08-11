@@ -1,15 +1,17 @@
-import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
-import 'package:crispy_starter/UI/Widgets/card_list.dart';
-import 'package:crispy_starter/UI/Widgets/data_list.dart';
-import 'package:crispy_starter/UI/screens/film_details_screen.dart';
 import 'package:crispy_starter/constants.dart';
+import 'package:crispy_starter/router.dart';
 import 'package:crispy_starter/services/networking.dart';
+import 'package:crispy_starter/ui/widgets/card_list.dart';
+import 'package:crispy_starter/ui/widgets/data_list.dart';
 import 'package:flutter/material.dart';
 
-import 'BLoC/Helpers/bloc_base.dart';
+import 'bloc/helpers/bloc_base.dart';
+import 'bloc/swipe_card_bloc.dart';
+
+const bool USE_MOCKED_DATA = true;
 
 void main() {
-  NetworkingService().initNetworkingServiceInterceptor();
+  if (USE_MOCKED_DATA) NetworkingService().initNetworkingServiceInterceptor();
   runApp(MyApp());
 }
 
@@ -19,21 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Crispy Starter',
-      onGenerateRoute: (settings) {
-        if (settings.name == '/filmDetailsScreen') {
-          final FilmDetailsArguments args = settings.arguments;
-
-          return PageRouteBuilder(
-            transitionDuration: Duration(milliseconds: 600),
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                FilmDetailsScreen(
-              movie: args.movie,
-              cardTag: args.cardTag,
-            ),
-          );
-        }
-        return null;
-      },
+      onGenerateRoute: Router.generateRoute,
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -1,5 +1,5 @@
-import 'package:crispy_starter/Models/data_models.dart';
 import 'package:crispy_starter/api_keys.dart';
+import 'package:crispy_starter/models/data_models.dart';
 import 'package:dio/dio.dart';
 
 class NetworkingService {

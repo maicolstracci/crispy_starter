@@ -1,17 +1,15 @@
-import 'package:crispy_starter/BLoC/Helpers/bloc_event_state.dart';
-import 'package:crispy_starter/Models/data_models.dart';
+import 'package:crispy_starter/bloc/Helpers/bloc_event_state.dart';
+import 'package:crispy_starter/models/data_models.dart';
 
 class SwipeCardState extends BlocState {
-  SwipeCardState(
-      {this.currentPage, this.isLoading, this.data});
-  
+  SwipeCardState({this.currentPage, this.isLoading, this.data});
+
   int currentPage;
   bool isLoading;
   List<Movie> data;
 
   factory SwipeCardState.initialise() {
-    return SwipeCardState(
-        currentPage: 0, isLoading: true);
+    return SwipeCardState(currentPage: 0, isLoading: true);
   }
 
   factory SwipeCardState.updateTitle(currentPage) {

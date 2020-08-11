@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-import 'package:crispy_starter/BLoC/Helpers/bloc_base.dart';
-import 'package:crispy_starter/BLoC/swipe_card_bloc.dart';
-import 'package:crispy_starter/Events/swipe_card_event.dart';
-import 'package:crispy_starter/States/swipe_card_state.dart';
+import 'package:crispy_starter/bloc/helpers/bloc_base.dart';
+import 'package:crispy_starter/bloc/swipe_card_bloc.dart';
 import 'package:crispy_starter/constants.dart';
+import 'package:crispy_starter/events/swipe_card_event.dart';
+import 'package:crispy_starter/states/swipe_card_state.dart';
 import 'package:flutter/material.dart';
 
 class CardListHeader extends StatefulWidget {
