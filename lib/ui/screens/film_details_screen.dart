@@ -2,13 +2,6 @@ import 'package:crispy_starter/models/data_models.dart';
 import 'package:crispy_starter/ui/widgets/heart_widget.dart';
 import 'package:flutter/material.dart';
 
-class FilmDetailsArguments {
-  final Movie movie;
-  final String cardTag;
-
-  FilmDetailsArguments(this.movie, {this.cardTag});
-}
-
 class FilmDetailsScreen extends StatefulWidget {
   final Movie movie;
   final String cardTag;

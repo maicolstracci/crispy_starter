@@ -12,11 +12,11 @@ class NetworkingService {
 
   NetworkingService._internal();
 
-  final Dio _dio = Dio();
+  static final Dio _dio = Dio();
 
   get dio => _dio;
 
-  List<String> _imdbEndpoint = [
+  static final List<String> _imdbEndpoint = [
     "Top250Movies",
     "Top250TVs",
     "MostPopularMovies",

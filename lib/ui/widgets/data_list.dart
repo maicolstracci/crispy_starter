@@ -4,7 +4,6 @@ import 'package:crispy_starter/bloc/swipe_card_bloc.dart';
 import 'package:crispy_starter/events/swipe_card_event.dart';
 import 'package:crispy_starter/router.dart';
 import 'package:crispy_starter/states/swipe_card_state.dart';
-import 'package:crispy_starter/ui/screens/film_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class DataList extends StatefulWidget {

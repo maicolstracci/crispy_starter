@@ -4,6 +4,7 @@ import 'package:crispy_starter/bloc/helpers/bloc_base.dart';
 import 'package:crispy_starter/bloc/swipe_card_bloc.dart';
 import 'package:crispy_starter/constants.dart';
 import 'package:crispy_starter/events/swipe_card_event.dart';
+import 'package:crispy_starter/router.dart';
 import 'package:crispy_starter/states/swipe_card_state.dart';
 import 'package:flutter/material.dart';
 
@@ -83,39 +84,59 @@ class ContainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            gradient: gradients[index],
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                spreadRadius: 1,
-                blurRadius: 15,
-              )
-            ],
-            borderRadius: BorderRadius.circular(6)),
-        margin: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Opacity(
-                opacity: (1 - (shrinkOffset / 70)).clamp(0.0, 1.0),
-                child: Text(
-                  "Testo che scompare",
-                  textAlign: TextAlign.start,
-                )),
-            Text(
-              cardTitles[index],
-              textAlign: TextAlign.center,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, Router.cardDetailsRoute,
+            arguments: CardDetailsArguments(
+                gradient: gradients[index],
+                tag: "card$index",
+                prevColor: Theme.of(context).backgroundColor));
+      },
+      child: Container(
+          decoration: BoxDecoration(
+              gradient: gradients[index],
+              borderRadius: BorderRadius.circular(6)),
+          margin: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+          child: Hero(
+            tag: "card$index",
+            child: Material(
+              type: MaterialType.transparency,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: gradients[index],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      spreadRadius: 1,
+                      blurRadius: 15,
+                    )
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Opacity(
+                        opacity: (1 - (shrinkOffset / 70)).clamp(0.0, 1.0),
+                        child: Text(
+                          "Testo che scompare",
+                          textAlign: TextAlign.start,
+                        )),
+                    Text(
+                      cardTitles[index],
+                      textAlign: TextAlign.center,
+                    ),
+                    Opacity(
+                        opacity: (1 - (shrinkOffset / 70)).clamp(0.0, 1.0),
+                        child: Text(
+                          "Testo che scompare",
+                          textAlign: TextAlign.end,
+                        ))
+                  ],
+                ),
+              ),
             ),
-            Opacity(
-                opacity: (1 - (shrinkOffset / 70)).clamp(0.0, 1.0),
-                child: Text(
-                  "Testo che scompare",
-                  textAlign: TextAlign.end,
-                ))
-          ],
-        ));
+          )),
+    );
   }
 }
